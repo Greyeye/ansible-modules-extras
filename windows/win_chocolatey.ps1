@@ -59,7 +59,8 @@ Function Chocolatey-Install-Upgrade
     if ($ChocoAlreadyInstalled -eq $null)
     {
         #We need to install chocolatey
-        iex ((new-object net.webclient).DownloadString("https://chocolatey.org/install.ps1"))
+        (New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1') |out-file $env:temp\install.ps1
+        & $env:temp\install.ps1
         $result.changed = $true
         $script:executable = "C:\ProgramData\chocolatey\bin\choco.exe"
     }
